@@ -109,9 +109,7 @@ app.get("/", catchAsyncErrors(async (req, res, next) => {
             const res = await gmail.users.labels.create({
                 userId: 'me',
                 requestBody: {
-                    name: LABEL_NAME,
-                    labelListVisibility: 'labelListShow', // This can be changed
-                    messageListVisibility: 'messageListshow', // This can be changed
+                    name: LABEL_NAME
                 },
             });
             return res.data.id;
@@ -156,7 +154,7 @@ app.get("/", catchAsyncErrors(async (req, res, next) => {
 
             // Get messages that do not have any prior replies
 
-            const messages = await getUnrepliedMessages(auth);
+            const messages = await getNoReplyMsgs(auth);
             console.log(`Found ${messages.length} unreplied messages`);
 
             for (const message of messages) {
